@@ -14,7 +14,7 @@
             @method('PUT')
             
             <div class="form-group row align-items-center">
-              <label for="image" class="col-md-4 col-form-label text-md-right">{{ _('Image') }}</label>
+              <label for="image" class="col-md-4 col-form-label text-md-right">プロフィール写真</label>
               
               <div class="col-md-6 d-flex align-items-center">
                 <img src="{{ asset('storage/image/' .$user->image) }}" class="mr-2 rounded-circle" width="80" height="80" alt="profile_image">
@@ -28,7 +28,7 @@
             </div>
             
             <div class="form-group row">
-              <label for="name" class="col-md-4 col-form-label text-md-right">{{ _('Account Name') }}</label>
+              <label for="name" class="col-md-4 col-form-label text-md-right">名前</label>
               
               <div class="col-md-6">
                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
@@ -41,7 +41,7 @@
             </div>
             
             <div class="form-group row">
-              <label for="email" class="col-md-4 col-form-label text-md-right">{{ _('E-Mail Address') }}</label>
+              <label for="email" class="col-md-4 col-form-label text-md-right">メールアドレス</label>
               
               <div class="col-md-6">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
