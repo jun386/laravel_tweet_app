@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Post;
 use App\Comment;
 
 class CommentsController extends Controller
@@ -90,8 +91,11 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Comment $comment)
     {
         //
+        $user = auth()->user();
+        $comment->commentDestroy($user->id, $comment->id);
+        return back();
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\User;
 use App\Post;
 use App\Follower;
+use App\Like;
 
 
 class UsersController extends Controller
@@ -17,6 +18,12 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth')
+             ->except(['index', 'show', 'follow', 'unfollow', 'likes']);
+    }
+    
     public function index(User $user)
     {
         //
@@ -137,5 +144,29 @@ class UsersController extends Controller
             $follower->unfollow($user->id);
             return back();
         }
+    }
+    
+    public function likes(User $user, Post $post, Follower $follower, Like $like)
+    {
+        //
+        $current_user = auth()->user();
+        $is_following = $current_user->isFollowing($user->id);
+        $is_followed = $current_user->isFollowed($user->id);
+        $get_likes = $like->getUserLikes($user->id);
+        $likes_posts_ids = $get_likes->pluck('post_id')->toArray();
+        $timelines = $post->getTimeLinesLikes($likes_posts_ids);
+        $post_count = $post->getPostCount($user->id);
+        $follow_count = $follower->getFollowCount($user->id);
+        $follower_count = $follower->getFollowerCount($user->id);
+        
+        return view('users.likes', [
+            'user' => $user,
+            'is_following' => $is_following,
+            'is_followed' => $is_followed,
+            'timelines' => $timelines,
+            'post_count' => $post_count,
+            'follow_count' => $follow_count,
+            'follower_count' => $follower_count
+        ]);
     }
 }

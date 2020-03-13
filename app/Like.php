@@ -8,8 +8,6 @@ class Like extends Model
 {
     //
     
-    public $timestamps = false;
-    
     public function post() {
         return $this->belongsTo('App\Post');
     }
@@ -31,5 +29,9 @@ class Like extends Model
     
     public function destroyLike(Int $like_id) {
         return $this->where('id', $like_id)->delete();
+    }
+    
+    public function getUserLikes(Int $user_id) {
+        return $this->where('user_id', $user_id)->orderBy('created_at', 'DESC')->paginate(50);
     }
 }

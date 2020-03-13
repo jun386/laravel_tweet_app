@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\User;
 use App\Post;
 use App\Comment;
 use App\Follower;
@@ -114,14 +115,17 @@ class PostsController extends Controller
     public function update(Request $request, Post $post)
     {
         //
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'content' => ['required', 'string', 'max:140']
-        ]);
-        
-        $validator->validate();
-        $post->postUpdate($post->id, $data);
-        return redirect('posts');
+        $user = auth()->user();
+        if ($user->can('update', $post)) {
+            $data = $request->all();
+            $validator = Validator::make($data, [
+                'content' => ['required', 'string', 'max:140']
+            ]);
+            
+            $validator->validate();
+            $post->postUpdate($post->id, $data);
+            return redirect('posts');
+        } 
     }
 
     /**
@@ -134,7 +138,10 @@ class PostsController extends Controller
     {
         //
         $user = auth()->user();
-        $post->postDestroy($user->id, $post->id);
-        return back();
+        if ($user->can('update', $post)) {
+            $user = auth()->user();
+            $post->postDestroy($user->id, $post->id);
+            return back();
+        }
     }
 }

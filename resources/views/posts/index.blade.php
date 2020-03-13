@@ -12,7 +12,7 @@
             <div class="card-header p-3 w-100 d-flex bg-white border-bottom-0">
               <img src="{{ asset('storage/image/' .$timeline->user->image) }}" class="rounded-circle" width="50" height="50">
               <div class="ml-2 d-flex flex-column">
-                <a href="{{ url('users/' .$timeline->user->id) }}">{{ $timeline->user->name }}</a>
+                <a href="{{ url('users/' .$timeline->user->id) }}" class="text-dark mt-2 ml-2">{{ $timeline->user->name }}</a>
               </div>
               <div class="d-flex justify-content-end flex-grow-1">
                 <p class="mb-0 text-secondary">{{ $timeline->created_at->format('Y-m-d H:i') }}</p>

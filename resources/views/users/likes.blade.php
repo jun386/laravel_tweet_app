@@ -59,10 +59,10 @@
         <div class="col-md-8 mb-1">
             <ul class="row nav nav-tabs">
               <li class="col-md-6 nav-item text-center">
-                <a class="nav-link active" href="#">ツイート</a>
+                <a class="nav-link" href="{{ url('users/' .$user->id) }}">ツイート</a>
               </li>
               <li class="col-md-6 nav-item text-center">
-                <a class="nav-link" href="{{ url('users/' .$user->id .'/likes') }}">お気に入り</a>
+                <a class="nav-link active" href="#">お気に入り</a>
               </li>
             </ul>
         </div>
@@ -72,7 +72,7 @@
                 <div class="col-md-8 mb-3">
                     <div class="card">
                         <div class="card-header p-3 w-100 d-flex bg-white border-bottom-0">
-                            <img src="{{ asset('storage/image/' .$user->image) }}" class="rounded-circle" width="50" height="50">
+                            <img src="{{ asset('storage/image/' .$timeline->user->image) }}" class="rounded-circle" width="50" height="50">
                             <div class="ml-2 d-flex flex-column flex-grow-1">
                                 <a href="{{ url('users/' .$timeline->user->id) }}" class="text-dark mt-2 ml-2">{{ $timeline->user->name }}</a>
                             </div>

@@ -34,6 +34,10 @@ class Post extends Model
         return $this->whereIn('user_id', $follow_ids)->orderBy('created_at', 'DESC')->paginate(50);
     }
     
+    public function getTimeLinesLikes(Array $like_ids) {
+        return $this->whereIn('id', $like_ids)->orderBy('created_at', 'DESC')->paginate(50);
+    }
+    
     public function getTweet(Int $post_id) {
         return $this->with('user')->where('id', $post_id)->first();
     }

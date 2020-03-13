@@ -28,4 +28,8 @@ class Comment extends Model
         $this->save();
         return;
     }
+    
+    public function commentDestroy(Int $user_id, Int $comment_id) {
+        return $this->where('user_id', $user_id)->where('id', $comment_id)->delete();
+    }
 }

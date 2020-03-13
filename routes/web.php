@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('users/{user}/following', 'FollowersController@following');
     Route::get('users/{user}/followers', 'FollowersController@followers');
     Route::resource('posts', 'PostsController', ['only' => ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']]);
-    Route::resource('comments', 'CommentsController', ['only' => ['store']]);
+    Route::get('users/{user}/likes', 'UsersController@likes');
+    Route::resource('comments', 'CommentsController', ['only' => ['store', 'destroy']]);
     Route::resource('likes', 'LikesController', ['only' => ['store', 'destroy']]);
 });

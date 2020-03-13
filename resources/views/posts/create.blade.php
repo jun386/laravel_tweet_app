@@ -15,7 +15,7 @@
               <div class="col-md-12 p-3 w-100 d-flex">
                 <img src="{{ asset('storage/image/' .$user->image) }}" class="rounded-circle" width="50" height="50">
                 <div class="ml-2 d-flex flex-column">
-                  <a href="{{ url('users/' .$user->id) }}">{{ $user->name }}</a>
+                  <a href="{{ url('users/' .$user->id) }}" class="text-dark mt-2 ml-2">{{ $user->name }}</a>
                 </div>
               </div>
               <div class="col-md-12">

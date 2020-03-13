@@ -14,26 +14,28 @@
                       <div class="ml-3 d-flex align-items-center">
                           <a href="{{ url('users/' .$user->id) }}" class="text-dark lead">{{ $user->name }}</a>
                       </div>
-                      @if (auth()->user()->isFollowed($user->id))
-                          <div class="px-3 pt-3">
-                              <span class="d-flex bg-secondary text-light">フォローされています</span>
-                          </div>
+                      @if($user->id !== Auth::id())
+                        @if (auth()->user()->isFollowed($user->id))
+                            <div class="px-3 pt-3">
+                                <span class="d-flex bg-secondary text-light">フォローされています</span>
+                            </div>
+                        @endif
+                        <div class="d-flex justify-content-end flex-grow-1 align-items-center">
+                            @if (auth()->user()->isFollowing($user->id))
+                                <form action="{{ route('unfollow', ['id' => $user->id]) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    
+                                    <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                </form>
+                            @else
+                                <form action="{{ route('follow', ['id' => $user->id]) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-primary">フォローする</button>
+                                </form>
+                            @endif
+                        </div>
                       @endif
-                      <div class="d-flex justify-content-end flex-grow-1 align-items-center">
-                          @if (auth()->user()->isFollowing($user->id))
-                              <form action="{{ route('unfollow', ['id' => $user->id]) }}" method="POST">
-                                  {{ csrf_field() }}
-                                  {{ method_field('DELETE') }}
-                                  
-                                  <button type="submit" class="btn btn-danger">フォロー解除</button>
-                              </form>
-                          @else
-                              <form action="{{ route('follow', ['id' => $user->id]) }}" method="POST">
-                                  {{ csrf_field() }}
-                                  <button type="submit" class="btn btn-primary">フォローする</button>
-                              </form>
-                          @endif
-                      </div>
                   </div>
               </div>
           @empty
